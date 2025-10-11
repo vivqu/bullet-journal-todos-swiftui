@@ -1,0 +1,9 @@
+SwiftUI project to build a custom todos mobile app that incorporates concepts from bullet journaling. Bullet journaling is a customizable analog system for organization, mindfulness, and productivity.
+
+This app will allow users to create and complete tasks for two different focus areas every week: personal life and work. Todo items can be categorized into different sections within each area. The sections will have a customized header that can be entered by the user, such as "Logistics", "Urgent", or "Creative hobbies." 
+
+The bullet journal concept will be adapted to this digital todo app. At the beginning of each week (Monday), the app will open a new blank page. A bottom navigator will allow users to go to previous weeks where they can see the list of completed and incomplete tasks. For the current week, if there are any incomplete tasks from the previous week, the app will provide a button to allow users to "carry over" the task. This will duplicate the incomplete tasks to the current week, plus mark the tasks from previous week with a right arrow (instead of an incomplete or completed check box), indicating it was carried over.
+
+Carrying over tasks should be a conscious, manual action because it gives the user a built-in reflection point about which task items are important. A user can instead choose to not carry over certain tasks and mark them as no longer needed, which will be indicated by an "X" (instead of right arrow or completed checkbox). This shows that the task was explicitly deprioritized or no longer relevant.
+
+Eventually we can add other features, like counting how many times a task has been carried week-over-week.

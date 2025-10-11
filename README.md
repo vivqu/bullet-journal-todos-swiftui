@@ -1,9 +1,26 @@
-SwiftUI project to build a custom todos mobile app that incorporates concepts from bullet journaling. Bullet journaling is a customizable analog system for organization, mindfulness, and productivity.
+# Bullet Journal Todos
 
-This app will allow users to create and complete tasks for two different focus areas every week: personal life and work. Todo items can be categorized into different sections within each area. The sections will have a customized header that can be entered by the user, such as "Logistics", "Urgent", or "Creative hobbies." 
+A SwiftUI app that brings bullet journaling concepts to digital task management. This app adapts traditional bullet journaling for mobile, helping users organize tasks across two focus areas: **Life** and **Work**.
 
-The bullet journal concept will be adapted to this digital todo app. At the beginning of each week (Monday), the app will open a new blank page. A bottom navigator will allow users to go to previous weeks where they can see the list of completed and incomplete tasks. For the current week, if there are any incomplete tasks from the previous week, the app will provide a button to allow users to "carry over" the task. This will duplicate the incomplete tasks to the current week, plus mark the tasks from previous week with a right arrow (instead of an incomplete or completed check box), indicating it was carried over.
+## Overview
 
-Carrying over tasks should be a conscious, manual action because it gives the user a built-in reflection point about which task items are important. A user can instead choose to not carry over certain tasks and mark them as no longer needed, which will be indicated by an "X" (instead of right arrow or completed checkbox). This shows that the task was explicitly deprioritized or no longer relevant.
+Bullet journaling is a customizable analog system for organization, mindfulness, and productivity. This app digitizes the core concepts while maintaining the intentional, reflection-driven approach that makes bullet journaling effective.
 
-Eventually we can add other features, like counting how many times a task has been carried week-over-week.
+## Core Features
+
+### Current Implementation (MVP)
+- **Weekly Pages**: Each week (starting Monday) gets a fresh page for tasks
+- **Dual Focus Areas**: Toggle between "LIFE" and "WORK" to view context-specific tasks
+- **Task Management**: Create, complete, and reorder tasks within each focus area
+- **Persistent Storage**: Tasks are saved using SwiftData and persist across app sessions
+- **Simple UI**: Clean, minimal interface inspired by paper bullet journals
+
+### Planned Features
+- **Task States**:
+  - ✓ Complete (checked)
+  - → Carried over (marked with right arrow)
+  - ✗ Deprioritized/No longer needed
+- **Manual Carry-Over**: Intentionally move incomplete tasks to the current week, providing a built-in reflection point
+- **Week Navigation**: Browse previous weeks to see historical tasks
+- **Custom Sections**: Organize tasks with user-defined category headers (e.g., "Logistics", "Urgent", "Creative hobbies")
+- **Carry-Over Tracking**: Count how many times a task has been carried week-over-week

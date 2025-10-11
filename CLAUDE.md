@@ -19,7 +19,7 @@ This is a SwiftUI mobile app that implements a digital bullet journal system for
 
 ## Build and Run
 
-This is a standard Xcode project for iOS/macOS.
+This is a standard Xcode project for iOS.
 
 **To build and run:**
 ```bash

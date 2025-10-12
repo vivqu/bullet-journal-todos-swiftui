@@ -7,7 +7,7 @@
   - Week model: `startDate: Date`, `tasks: [Task]`
   - FocusArea enum: `.life`, `.work`
 
-- [ ] 2. Create unit tests for data models
+- [x] 2. Create unit tests for data models
   - Test adding/removing tasks updates `week.tasks`
   - Test week creation with Monday start date
   - Test task sorting by `sortOrder` descending

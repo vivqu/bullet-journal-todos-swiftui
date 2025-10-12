@@ -60,12 +60,11 @@ final class ModelTests: XCTestCase {
         // Verify setup
         XCTAssertEqual(week.tasks.count, 1, "Setup: Week should have 1 task")
 
-        // When: Removing the task from the week
-        week.tasks.removeAll()
+        // When: Deleting the task from model context
         modelContext.delete(task)
 
-        // Then: The week's tasks array should be empty
-        XCTAssertEqual(week.tasks.count, 0, "Week should have 0 tasks after removing")
+        // Then: The week's tasks array should be automatically updated due to inverse relationship
+        XCTAssertEqual(week.tasks.count, 0, "Week should have 0 tasks after deleting task (inverse relationship should update automatically)")
     }
 
     func testAddingMultipleTasksToWeek() throws {

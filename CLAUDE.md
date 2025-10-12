@@ -19,16 +19,19 @@ This is a SwiftUI mobile app that implements a digital bullet journal system for
 
 ## Build and Run
 
-This is a standard Xcode project for iOS.
+This is a standard Xcode project for iOS requiring **iOS 17.0** or later (SwiftData minimum requirement).
 
-**To build and run:**
+**Development Workflow:**
+See [WORKFLOW.md](WORKFLOW.md) for complete development workflow including:
+- Git branching strategy (create new branch for each task)
+- Build and simulator testing procedures
+- Commit message conventions
+
+**Quick start:**
 ```bash
 open BulletJournalTodos/BulletJournalTodos.xcodeproj
 ```
 Then use Xcode's build (Cmd+B) and run (Cmd+R) commands.
-
-**To run on iOS Simulator:**
-Use Xcode's scheme selector to choose a target device, then press Cmd+R.
 
 ## Architecture
 
@@ -69,5 +72,5 @@ The current codebase is a starter template. The architecture will need:
 ## Development Notes
 
 - This is an early-stage project with starter template code
-- The current `Item` model is a placeholder and will need to be replaced with proper task/week models
 - SwiftUI previews are configured for in-memory testing (see `ContentView.swift:58-61`)
+- **IMPORTANT:** Always follow the workflow in [WORKFLOW.md](WORKFLOW.md) when implementing tasks

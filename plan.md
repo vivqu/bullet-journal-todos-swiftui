@@ -2,7 +2,7 @@
 
 ## Phase 1: Data Foundation
 
-- [ ] 1. Create SwiftData models
+- [x] 1. Create SwiftData models
   - Task model: `text: String`, `isComplete: Bool`, `focusArea: FocusArea`, `sortOrder: Int`, `week: Week?`
   - Week model: `startDate: Date`, `tasks: [Task]`
   - FocusArea enum: `.life`, `.work`

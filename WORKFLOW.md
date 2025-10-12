@@ -65,7 +65,13 @@ This document outlines the development workflow for this project when working wi
    - User will review the running app in simulator
    - User may request changes or approve to continue
 
-5. **After user approval, update plan.md:**
+5. **Review code for style and language compliance:**
+   - Review all modified Swift files against the style guide in `docs/swift.md`
+   - Fix any violations (e.g., force unwrapping, naming conventions, etc.)
+   - Ensure code follows Swift best practices and project conventions
+   - Re-run tests after style fixes to verify correctness
+
+6. **After user approval, update plan.md:**
    - Mark the completed task with `[x]` in plan.md
    - Example: Change `- [ ] 1. Create SwiftData models` to `- [x] 1. Create SwiftData models`
    - This keeps the plan in sync with actual progress

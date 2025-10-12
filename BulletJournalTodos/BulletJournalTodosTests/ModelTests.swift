@@ -63,6 +63,9 @@ final class ModelTests: XCTestCase {
         // When: Deleting the task from model context
         modelContext.delete(task)
 
+        // Process pending changes to trigger inverse relationship update
+        try modelContext.save()
+
         // Then: The week's tasks array should be automatically updated due to inverse relationship
         XCTAssertEqual(week.tasks.count, 0, "Week should have 0 tasks after deleting task (inverse relationship should update automatically)")
     }
@@ -95,19 +98,27 @@ final class ModelTests: XCTestCase {
 
     func testWeekCreationWithMondayStartDate() throws {
         // Given: A date that may or may not be Monday
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2  // Set Monday as first day of week
         let today = Date()
 
         // When: Creating a week with the Monday of the current week
-        let mondayComponents = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
-        let mondayStartDate = calendar.date(from: mondayComponents)!
+        // Get the weekday of today
+        let weekday = calendar.component(.weekday, from: today)
+        // Calculate days to subtract to get to Monday (weekday 2)
+        let daysFromMonday = (weekday + 5) % 7  // This formula works for Monday as weekday 2
+        guard let monday = calendar.date(byAdding: .day, value: -daysFromMonday, to: today) else {
+            XCTFail("Expected a non-nil calendar date when calculating Monday")
+            return
+        }
+        let mondayStartDate = calendar.startOfDay(for: monday)
 
         let week = Week(startDate: mondayStartDate)
         modelContext.insert(week)
 
         // Then: The week's start date should be a Monday
-        let weekday = calendar.component(.weekday, from: week.startDate)
-        XCTAssertEqual(weekday, 2, "Start date should be Monday (weekday = 2)")
+        let resultWeekday = calendar.component(.weekday, from: week.startDate)
+        XCTAssertEqual(resultWeekday, 2, "Start date should be Monday (weekday = 2)")
     }
 
     func testWeekStartDateIsSetAtMidnight() throws {
@@ -117,7 +128,10 @@ final class ModelTests: XCTestCase {
 
         // When: Creating a week with Monday at midnight
         let mondayComponents = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
-        let mondayStartDate = calendar.date(from: mondayComponents)!
+        guard let mondayStartDate = calendar.date(from: mondayComponents) else {
+            XCTFail("Expected a non-nil calendar date from date components")
+            return
+        }
 
         let week = Week(startDate: mondayStartDate)
         modelContext.insert(week)
@@ -135,12 +149,22 @@ final class ModelTests: XCTestCase {
         let today = Date()
 
         let thisMondayComponents = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
-        let thisMonday = calendar.date(from: thisMondayComponents)!
+        guard let thisMonday = calendar.date(from: thisMondayComponents) else {
+            XCTFail("Expected a non-nil calendar date for this Monday")
+            return
+        }
 
         // Get last Monday (7 days ago)
         var lastMondayComponents = thisMondayComponents
-        lastMondayComponents.weekOfYear! -= 1
-        let lastMonday = calendar.date(from: lastMondayComponents)!
+        guard let weekOfYear = lastMondayComponents.weekOfYear else {
+            XCTFail("Expected a non-nil week of year")
+            return
+        }
+        lastMondayComponents.weekOfYear = weekOfYear - 1
+        guard let lastMonday = calendar.date(from: lastMondayComponents) else {
+            XCTFail("Expected a non-nil calendar date for last Monday")
+            return
+        }
 
         // When: Creating two weeks
         let thisWeek = Week(startDate: thisMonday)

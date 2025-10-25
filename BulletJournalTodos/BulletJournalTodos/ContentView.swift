@@ -25,6 +25,10 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Task.self, Week.self, inMemory: true)
+    let schema = Schema([Task.self, Week.self])
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: schema, configurations: [config])
+
+    return ContentView()
+        .modelContainer(container)
 }

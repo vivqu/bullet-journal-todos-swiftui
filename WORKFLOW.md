@@ -103,6 +103,10 @@ When creating commits, follow these guidelines:
    Co-Authored-By: Claude <noreply@anthropic.com>"
    ```
 
+## Error Handling
+
+**Avoid `fatalError()` for user-facing errors** - only use it for unrecoverable system failures or developer mistakes. Use `assertionFailure()` for data integrity warnings that allow the app to continue functioning gracefully.
+
 ## Available Simulators
 
 The project requires **iOS 17.0** or later (SwiftData minimum requirement).

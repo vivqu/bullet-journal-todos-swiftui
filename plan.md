@@ -21,14 +21,21 @@
 
 ## Phase 2: Core UI Components (Build + Test Incrementally)
 
-- [ ] 4. Build WeekHeaderView
-  - Display "week of [date]" with date formatting
-  - Takes Date parameter
+**IMPORTANT**: For ALL Phase 2 tasks, consult the mockups in [mocks/](mocks/) directory to ensure UI implementation matches the designs as closely as possible. Key mockups:
+- [main-screen.png](mocks/main-screen.png) - LIFE focus area selected
+- [work-selected-main-screen.png](mocks/work-selected-main-screen.png) - WORK focus area selected
+- [add-new-task.png](mocks/add-new-task.png) - Add task sheet
 
-- [ ] 5. Add WeekHeaderView to main screen for testing
+- [x] 4. Build WeekHeaderView
+  - Display "Week of [date]" with date formatting (format: "MMM d" without year)
+  - Takes Date parameter (expects Monday start date)
+  - Left-aligned text
+  - Note: Always pass Monday date using `Week.getCurrentWeekStart()`, not current date
+
+- [x] 5. Add WeekHeaderView to main screen for testing
   - Replace ContentView with basic layout
-  - Add WeekHeaderView with hardcoded date
-  - Verify rendering
+  - Add WeekHeaderView with Monday date (`Week.getCurrentWeekStart()`)
+  - Verify rendering and left alignment
 
 - [ ] 6. Build CreateTaskButton
   - Gray pill button with "+ Create task" text

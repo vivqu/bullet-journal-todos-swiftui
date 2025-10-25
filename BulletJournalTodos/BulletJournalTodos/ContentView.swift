@@ -12,14 +12,12 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
-        VStack {
-            Text("Bullet Journal Todos")
-                .font(.largeTitle)
-                .padding()
+        VStack(alignment: .leading, spacing: 16) {
+            WeekHeaderView(weekStartDate: Week.getCurrentWeekStart())
+                .padding(.horizontal)
+                .padding(.top)
 
-            Text("Phase 2: UI Implementation Coming Soon")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            Spacer()
         }
     }
 }

@@ -17,6 +17,11 @@ struct ContentView: View {
                 .padding(.horizontal)
                 .padding(.top)
 
+            CreateTaskButton {
+                print("Create task button tapped")
+            }
+            .padding(.horizontal)
+
             Spacer()
         }
     }

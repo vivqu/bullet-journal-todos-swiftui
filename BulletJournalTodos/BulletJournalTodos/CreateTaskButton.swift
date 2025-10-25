@@ -12,16 +12,13 @@ struct CreateTaskButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack {
-                Text("+ Create task")
-                    .font(.body)
-                    .foregroundColor(.black)
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(Color(white: 0.9))
-            .cornerRadius(20)
+            Text("+ Create task")
+                .font(.body)
+                .foregroundColor(.black)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color(white: 0.9))
+                .cornerRadius(20)
         }
     }
 }

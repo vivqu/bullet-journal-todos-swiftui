@@ -31,31 +31,30 @@ final class ModelTests: XCTestCase {
     // MARK: - Test: Adding/Removing Tasks Updates week.tasks
 
     func testAddingTaskToWeekUpdatesTasksArray() throws {
-        // Given: A week with no tasks
-        let startDate = Date()
-        let week = Week(startDate: startDate, tasks: [])
+        // Given: A week for the current week
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart, tasks: [])
         modelContext.insert(week)
 
-        // When: Adding a task to the week
-        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0, week: week)
+        // When: Creating a task (it automatically associates with the current week)
+        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
         modelContext.insert(task)
-        week.tasks.append(task)
 
         // Then: The week's tasks array should contain the task
         XCTAssertEqual(week.tasks.count, 1, "Week should have 1 task after adding")
         XCTAssertEqual(week.tasks.first?.text, "Test task", "Task text should match")
         XCTAssertTrue(week.tasks.first === task, "Week should contain the exact task instance")
+        XCTAssertNotNil(task.createdAt, "Task should have a creation timestamp")
     }
 
     func testRemovingTaskFromWeekUpdatesTasksArray() throws {
         // Given: A week with one task
-        let startDate = Date()
-        let week = Week(startDate: startDate, tasks: [])
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart, tasks: [])
         modelContext.insert(week)
 
-        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0, week: week)
+        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
         modelContext.insert(task)
-        week.tasks.append(task)
 
         // Verify setup
         XCTAssertEqual(week.tasks.count, 1, "Setup: Week should have 1 task")
@@ -71,27 +70,25 @@ final class ModelTests: XCTestCase {
     }
 
     func testAddingMultipleTasksToWeek() throws {
-        // Given: A week with no tasks
-        let startDate = Date()
-        let week = Week(startDate: startDate, tasks: [])
+        // Given: A week for the current week
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart, tasks: [])
         modelContext.insert(week)
 
         // When: Adding multiple tasks
-        let task1 = Task(text: "Task 1", focusArea: .life, sortOrder: 0, week: week)
-        let task2 = Task(text: "Task 2", focusArea: .work, sortOrder: 1, week: week)
-        let task3 = Task(text: "Task 3", focusArea: .life, sortOrder: 2, week: week)
+        let task1 = Task(text: "Task 1", focusArea: .life, sortOrder: 0, modelContext: modelContext)
+        let task2 = Task(text: "Task 2", focusArea: .work, sortOrder: 1, modelContext: modelContext)
+        let task3 = Task(text: "Task 3", focusArea: .life, sortOrder: 2, modelContext: modelContext)
 
         modelContext.insert(task1)
         modelContext.insert(task2)
         modelContext.insert(task3)
 
-        week.tasks.append(contentsOf: [task1, task2, task3])
-
-        // Then: The week should contain all three tasks
+        // Then: The week should contain all three tasks (automatically via inverse relationship)
         XCTAssertEqual(week.tasks.count, 3, "Week should have 3 tasks")
-        XCTAssertEqual(week.tasks[0].text, "Task 1")
-        XCTAssertEqual(week.tasks[1].text, "Task 2")
-        XCTAssertEqual(week.tasks[2].text, "Task 3")
+        XCTAssertTrue(week.tasks.contains(where: { $0.text == "Task 1" }))
+        XCTAssertTrue(week.tasks.contains(where: { $0.text == "Task 2" }))
+        XCTAssertTrue(week.tasks.contains(where: { $0.text == "Task 3" }))
     }
 
     // MARK: - Test: Week Creation with Monday Start Date
@@ -182,18 +179,17 @@ final class ModelTests: XCTestCase {
 
     func testTasksSortedBySortOrderDescending() throws {
         // Given: A week with tasks having different sortOrder values
-        let week = Week(startDate: Date())
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
         modelContext.insert(week)
 
-        let task1 = Task(text: "Oldest task", focusArea: .life, sortOrder: 0, week: week)
-        let task2 = Task(text: "Middle task", focusArea: .life, sortOrder: 5, week: week)
-        let task3 = Task(text: "Newest task", focusArea: .life, sortOrder: 10, week: week)
+        let task1 = Task(text: "Oldest task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
+        let task2 = Task(text: "Middle task", focusArea: .life, sortOrder: 5, modelContext: modelContext)
+        let task3 = Task(text: "Newest task", focusArea: .life, sortOrder: 10, modelContext: modelContext)
 
         modelContext.insert(task1)
         modelContext.insert(task2)
         modelContext.insert(task3)
-
-        week.tasks.append(contentsOf: [task1, task2, task3])
 
         // When: Sorting tasks by sortOrder descending
         let sortedTasks = week.tasks.sorted { $0.sortOrder > $1.sortOrder }
@@ -206,20 +202,19 @@ final class ModelTests: XCTestCase {
 
     func testTasksSortWithMixedFocusAreas() throws {
         // Given: Tasks from different focus areas with different sortOrders
-        let week = Week(startDate: Date())
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
         modelContext.insert(week)
 
-        let lifeTask1 = Task(text: "Life task 1", focusArea: .life, sortOrder: 2, week: week)
-        let workTask1 = Task(text: "Work task 1", focusArea: .work, sortOrder: 5, week: week)
-        let lifeTask2 = Task(text: "Life task 2", focusArea: .life, sortOrder: 8, week: week)
-        let workTask2 = Task(text: "Work task 2", focusArea: .work, sortOrder: 1, week: week)
+        let lifeTask1 = Task(text: "Life task 1", focusArea: .life, sortOrder: 2, modelContext: modelContext)
+        let workTask1 = Task(text: "Work task 1", focusArea: .work, sortOrder: 5, modelContext: modelContext)
+        let lifeTask2 = Task(text: "Life task 2", focusArea: .life, sortOrder: 8, modelContext: modelContext)
+        let workTask2 = Task(text: "Work task 2", focusArea: .work, sortOrder: 1, modelContext: modelContext)
 
         modelContext.insert(lifeTask1)
         modelContext.insert(workTask1)
         modelContext.insert(lifeTask2)
         modelContext.insert(workTask2)
-
-        week.tasks.append(contentsOf: [lifeTask1, workTask1, lifeTask2, workTask2])
 
         // When: Filtering and sorting life tasks by sortOrder descending
         let lifeTasks = week.tasks
@@ -244,18 +239,17 @@ final class ModelTests: XCTestCase {
 
     func testTasksSortWithEqualSortOrders() throws {
         // Given: Tasks with the same sortOrder (edge case)
-        let week = Week(startDate: Date())
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
         modelContext.insert(week)
 
-        let task1 = Task(text: "Task A", focusArea: .life, sortOrder: 5, week: week)
-        let task2 = Task(text: "Task B", focusArea: .life, sortOrder: 5, week: week)
-        let task3 = Task(text: "Task C", focusArea: .life, sortOrder: 10, week: week)
+        let task1 = Task(text: "Task A", focusArea: .life, sortOrder: 5, modelContext: modelContext)
+        let task2 = Task(text: "Task B", focusArea: .life, sortOrder: 5, modelContext: modelContext)
+        let task3 = Task(text: "Task C", focusArea: .life, sortOrder: 10, modelContext: modelContext)
 
         modelContext.insert(task1)
         modelContext.insert(task2)
         modelContext.insert(task3)
-
-        week.tasks.append(contentsOf: [task1, task2, task3])
 
         // When: Sorting by sortOrder descending
         let sortedTasks = week.tasks.sorted { $0.sortOrder > $1.sortOrder }
@@ -271,15 +265,21 @@ final class ModelTests: XCTestCase {
     // MARK: - Additional Model Tests
 
     func testTaskInitializationWithDefaults() throws {
-        // Given: Creating a task with minimal parameters
-        let task = Task(text: "Simple task", focusArea: .life, sortOrder: 0)
+        // Given: Creating the current week and a task with minimal parameters
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
+        modelContext.insert(week)
+
+        let task = Task(text: "Simple task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
 
         // Then: Default values should be set correctly
         XCTAssertEqual(task.text, "Simple task")
         XCTAssertFalse(task.isComplete, "isComplete should default to false")
         XCTAssertEqual(task.focusArea, .life)
         XCTAssertEqual(task.sortOrder, 0)
-        XCTAssertNil(task.week, "week should default to nil")
+        XCTAssertNotNil(task.week, "week should be automatically assigned")
+        XCTAssertEqual(task.week.startDate, currentWeekStart, "Task should be associated with current week")
+        XCTAssertNotNil(task.createdAt, "createdAt should be set automatically")
     }
 
     func testWeekInitializationWithDefaults() throws {
@@ -293,8 +293,13 @@ final class ModelTests: XCTestCase {
     }
 
     func testTaskCompletionToggle() throws {
-        // Given: A task that is not complete
-        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0)
+        // Given: Creating the current week first
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
+        modelContext.insert(week)
+
+        // And a task that is not complete
+        let task = Task(text: "Test task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
         XCTAssertFalse(task.isComplete, "Task should start incomplete")
 
         // When: Toggling completion
@@ -314,5 +319,72 @@ final class ModelTests: XCTestCase {
         // Test that FocusArea enum has expected cases
         XCTAssertEqual(FocusArea.life.rawValue, "life")
         XCTAssertEqual(FocusArea.work.rawValue, "work")
+    }
+
+    // MARK: - Test: Automatic Week Association
+
+    func testTaskAutomaticallyAssociatedWithCurrentWeek() throws {
+        // Given: A current week exists in the database
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
+        modelContext.insert(week)
+
+        // When: Creating a task without explicitly passing a week
+        let task = Task(text: "Auto-assigned task", focusArea: .work, sortOrder: 0, modelContext: modelContext)
+        modelContext.insert(task)
+
+        // Then: Task should be automatically associated with current week
+        XCTAssertEqual(task.week.startDate, currentWeekStart, "Task should be auto-assigned to current week")
+        XCTAssertTrue(week.tasks.contains(where: { $0.text == "Auto-assigned task" }), "Week should contain the task")
+    }
+
+    func testTaskCreatesWeekIfNotExists() throws {
+        // Given: No week exists in the database
+        // (setUp creates an empty context)
+
+        // When: Creating a task
+        let task = Task(text: "Orphan task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
+        modelContext.insert(task)
+
+        // Then: A week should be automatically created
+        let currentWeekStart = Week.getCurrentWeekStart()
+        XCTAssertEqual(task.week.startDate, currentWeekStart, "Task should create and associate with current week")
+
+        // Verify the week exists in the context
+        let descriptor = FetchDescriptor<Week>()
+        let weeks = try modelContext.fetch(descriptor)
+        XCTAssertEqual(weeks.count, 1, "Exactly one week should exist")
+        XCTAssertEqual(weeks.first?.startDate, currentWeekStart, "Created week should be for current week")
+    }
+
+    func testCreatedAtTimestamp() throws {
+        // Given: A current week exists
+        let currentWeekStart = Week.getCurrentWeekStart()
+        let week = Week(startDate: currentWeekStart)
+        modelContext.insert(week)
+
+        // When: Creating a task
+        let beforeCreation = Date()
+        let task = Task(text: "Timestamped task", focusArea: .life, sortOrder: 0, modelContext: modelContext)
+        let afterCreation = Date()
+
+        // Then: createdAt should be between before and after timestamps
+        XCTAssertGreaterThanOrEqual(task.createdAt, beforeCreation, "createdAt should be at or after creation start")
+        XCTAssertLessThanOrEqual(task.createdAt, afterCreation, "createdAt should be at or before creation end")
+    }
+
+    func testGetCurrentWeekStartReturnsMonday() throws {
+        // When: Getting the current week start
+        let currentWeekStart = Week.getCurrentWeekStart()
+
+        // Then: It should be a Monday at midnight
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: currentWeekStart)
+        XCTAssertEqual(weekday, 2, "Current week start should be Monday (weekday = 2)")
+
+        let components = calendar.dateComponents([.hour, .minute, .second], from: currentWeekStart)
+        XCTAssertEqual(components.hour, 0, "Hour should be 0 (midnight)")
+        XCTAssertEqual(components.minute, 0, "Minute should be 0")
+        XCTAssertEqual(components.second, 0, "Second should be 0")
     }
 }

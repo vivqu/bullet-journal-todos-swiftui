@@ -3,7 +3,10 @@
 ## Phase 1: Data Foundation
 
 - [x] 1. Create SwiftData models
-  - Task model: `text: String`, `isComplete: Bool`, `focusArea: FocusArea`, `sortOrder: Int`, `week: Week?`
+  - Task model: `text: String`, `isComplete: Bool`, `focusArea: FocusArea`, `sortOrder: Int`, `createdAt: Date`, `week: Week`
+    - Note: `createdAt` tracks when task was originally created (useful for carry-over tracking and debugging)
+    - Note: `week` is non-optional - tasks must belong to a week
+    - Note: Task text is stored exactly as provided by user (including empty strings and whitespace)
   - Week model: `startDate: Date`, `tasks: [Task]`
   - FocusArea enum: `.life`, `.work`
 

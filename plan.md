@@ -37,11 +37,11 @@
   - Add WeekHeaderView with Monday date (`Week.getCurrentWeekStart()`)
   - Verify rendering and left alignment
 
-- [ ] 6. Build CreateTaskButton
+- [x] 6. Build CreateTaskButton
   - Gray pill button with "+ Create task" text
   - Takes action closure for tap handling
 
-- [ ] 7. Add CreateTaskButton to main screen for testing
+- [x] 7. Add CreateTaskButton to main screen for testing
   - Add below WeekHeaderView
   - Hook up tap action (prints to console)
   - Verify button appearance and tap

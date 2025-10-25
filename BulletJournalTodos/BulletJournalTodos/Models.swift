@@ -57,6 +57,7 @@ final class Week {
 
         // Get the Monday of the current week
         guard let monday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else {
+            assertionFailure("⚠️ Developer Warning: Calendar failed to compute Monday from date components. This should never happen with valid Calendar/Date.")
             return calendar.startOfDay(for: now)
         }
 

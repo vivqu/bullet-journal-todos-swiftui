@@ -220,3 +220,9 @@ ScrollViewReader { proxy in
 ### Risk 6: Week creation timing
 - **Issue**: App launch might be slow if week creation happens on main thread
 - **Mitigation**: Test in step 16, verify smooth launch. Move to background if needed
+
+---
+
+## Future Considerations (Post-Prototype)
+
+- **Implement data migration strategy:** Currently no versioning or migration scheme in place. Before adding task state transitions, carry-over features, or other model changes, implement SwiftData lightweight migrations to prevent breaking existing user data. Address before production release.

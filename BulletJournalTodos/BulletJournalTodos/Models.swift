@@ -51,7 +51,8 @@ final class Week {
 
     /// Returns the start date (Monday at 00:00:00) of the current week
     static func getCurrentWeekStart() -> Date {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2  // Force Monday as week start regardless of locale
         let now = Date()
 
         // Get the Monday of the current week

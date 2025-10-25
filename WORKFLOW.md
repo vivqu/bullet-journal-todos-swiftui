@@ -28,7 +28,14 @@ This document outlines the development workflow for this project when working wi
 ## During Task Execution
 
 1. **Use TodoWrite tool** to track task progress
-2. **Make incremental commits** for logical changes (optional, but recommended for complex tasks)
+2. **Make small, focused commits** as you complete logical units of work:
+   - Prefer multiple small commits over one large commit
+   - Each commit should represent a single, coherent change
+   - Stack commits to build up functionality incrementally
+   - Examples:
+     - ✅ Commit 1: "refactor: simplify Task initializer"
+     - ✅ Commit 2: "fix: force Monday as first weekday"
+     - ❌ Avoid: One commit with "refactor Task + fix calendar + update docs"
 3. **Build frequently** to catch compilation errors early
 
 ## After Completing Each Task

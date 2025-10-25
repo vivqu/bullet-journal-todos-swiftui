@@ -15,7 +15,7 @@
   - Test week creation with Monday start date
   - Test task sorting by `sortOrder` descending
 
-- [ ] 3. Add app launch logic
+- [x] 3. Add app launch logic
   - Check if Week exists for current week (Monday-based)
   - Create Week if needed
 

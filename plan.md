@@ -46,7 +46,7 @@
   - Hook up tap action (prints to console)
   - Verify button appearance and tap
 
-- [ ] 8. Build TaskRowView
+- [x] 8. Build TaskRowView
   - Checkbox (empty square) + task text
   - Tap checkbox to toggle `isComplete` on binding
   - Takes Task binding

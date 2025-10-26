@@ -51,7 +51,7 @@
   - Tap checkbox to toggle `isComplete` on binding
   - Takes Task binding
 
-- [ ] 9. Add TaskRowView to main screen with mock data
+- [x] 9. Add TaskRowView to main screen with mock data
   - Create struct for mock Task data (not SwiftData yet)
   - Display 2-3 TaskRows with sample text
   - Add @State for mock completion toggling

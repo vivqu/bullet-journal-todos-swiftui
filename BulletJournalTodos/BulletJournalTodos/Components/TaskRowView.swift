@@ -38,23 +38,24 @@ struct TaskRowView: View {
 struct TaskViewModel {
     var text: String
     var isComplete: Bool
+    var sortOrder: Int
 }
 
 #Preview("Incomplete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: false)))
+    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0)))
         .padding()
 }
 
 #Preview("Complete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: true)))
+    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: true, sortOrder: 1)))
         .padding()
 }
 
 #Preview("Multiple Tasks") {
     VStack(alignment: .leading, spacing: 8) {
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 3", isComplete: false)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: false)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: true)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: true, sortOrder: 0)))
     }
     .padding()
 }

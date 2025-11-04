@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+@import DEFAULT_TASK_WORKFLOW.md
+
 ## Project Overview
 
 This is a SwiftUI mobile app that implements a digital bullet journal system for task management. The app adapts traditional bullet journaling concepts for digital todo management with two focus areas: personal life and work.
@@ -20,12 +22,6 @@ This is a SwiftUI mobile app that implements a digital bullet journal system for
 ## Build and Run
 
 This is a standard Xcode project for iOS requiring **iOS 17.0** or later (SwiftData minimum requirement).
-
-**Development Workflow:**
-See [WORKFLOW.md](WORKFLOW.md) for complete development workflow including:
-- Git branching strategy (create new branch for each task)
-- Build and simulator testing procedures
-- Commit message conventions
 
 **Quick start:**
 ```bash
@@ -73,4 +69,3 @@ The current codebase is a starter template. The architecture will need:
 
 - This is an early-stage project with starter template code
 - SwiftUI previews are configured for in-memory testing (see `ContentView.swift:58-61`)
-- **IMPORTANT:** Always follow the workflow in [WORKFLOW.md](WORKFLOW.md) when implementing tasks

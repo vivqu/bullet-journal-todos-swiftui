@@ -10,10 +10,13 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @State private var selectedFocusArea: FocusArea = .life
     @State private var mockTasks: [TaskViewModel] = [
-        TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2),
-        TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1),
-        TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0)
+        TaskViewModel(text: "Example todo 5", isComplete: false, sortOrder: 4, focusArea: .work),
+        TaskViewModel(text: "Example todo 4", isComplete: false, sortOrder: 3, focusArea: .work),
+        TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2, focusArea: .life),
+        TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1, focusArea: .life),
+        TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)
     ]
 
     var body: some View {
@@ -21,6 +24,9 @@ struct ContentView: View {
             WeekHeaderView(weekStartDate: Week.getCurrentWeekStart())
                 .padding(.horizontal)
                 .padding(.top)
+
+            FocusAreaToggle(selectedFocusArea: $selectedFocusArea)
+                .padding(.horizontal)
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(mockTasks.sorted(by: { $0.sortOrder > $1.sortOrder }), id: \.sortOrder) { task in

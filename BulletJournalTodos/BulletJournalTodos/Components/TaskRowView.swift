@@ -39,23 +39,24 @@ struct TaskViewModel {
     var text: String
     var isComplete: Bool
     var sortOrder: Int
+    var focusArea: FocusArea
 }
 
 #Preview("Incomplete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0)))
+    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)))
         .padding()
 }
 
 #Preview("Complete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: true, sortOrder: 1)))
+    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: true, sortOrder: 1, focusArea: .life)))
         .padding()
 }
 
 #Preview("Multiple Tasks") {
     VStack(alignment: .leading, spacing: 8) {
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: true, sortOrder: 0)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2, focusArea: .life)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1, focusArea: .work)))
+        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: true, sortOrder: 0, focusArea: .life)))
     }
     .padding()
 }

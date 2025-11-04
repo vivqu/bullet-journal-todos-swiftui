@@ -148,11 +148,13 @@ After completing a task and receiving user approval:
 
 1. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
 
-2. **If yes, merge the branch:**
+2. **If yes, merge and clean up the branch:**
    ```bash
    git checkout main
    git merge <branch-name> --no-ff -m "Merge <task-description>"
+   git branch -d <branch-name>
    ```
+   The `-d` flag safely deletes the branch after it's been merged.
 
 3. **If no, continue on the same branch** for the next task. This allows related work to stay together before merging into main.
 

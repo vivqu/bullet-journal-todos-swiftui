@@ -62,10 +62,11 @@
   - Blue text for active, black for inactive
   - Takes binding to FocusArea selection
 
-- [ ] 11. Add FocusAreaToggle to main screen for testing
+- [x] 11. Add FocusAreaToggle to main screen for testing
   - Add below WeekHeaderView, above tasks
   - Wire to @State variable
   - Verify toggle switches and colors update
+  - Added filtering logic: tasks filtered by selectedFocusArea
 
 - [ ] 12. Build TaskListView
   - Scrollable List of TaskRows
@@ -75,11 +76,8 @@
   - CreateTaskButton at bottom (or as empty state)
 
 - [ ] 13. Add TaskListView to main screen with mock data
-  - Remove previous demo TaskRows
-  - Create mock tasks for LIFE (3 tasks) and WORK (2 tasks)
-  - Assign different sortOrder values to mock tasks
-  - Wire FocusAreaToggle to filter displayed tasks
-  - Verify filtering when toggle switches
+  - Replace current VStack with TaskListView component
+  - Add `.onMove` modifier for drag-to-reorder
   - Verify drag-to-reorder updates visual order
   - Verify empty state shows button
 

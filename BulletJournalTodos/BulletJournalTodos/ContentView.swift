@@ -44,18 +44,14 @@ struct ContentView: View {
             )
         }
         .sheet(isPresented: $showAddTaskSheet) {
-            VStack {
-                Spacer()
-                AddTaskSheet(task: taskToEdit) { text in
-                    print("Task submitted: \(text)")
-                    // TODO: Create or update task in SwiftData
-                }
-                .padding(.bottom, 0)
+            AddTaskSheet(task: taskToEdit) { text in
+                print("Task submitted: \(text)")
+                // TODO: Create or update task in SwiftData
             }
-            .background(Color.white)
             .presentationDetents([.height(100)])
             .presentationDragIndicator(.visible)
             .presentationBackgroundInteraction(.enabled)
+            .presentationBackground(.white)
         }
     }
 

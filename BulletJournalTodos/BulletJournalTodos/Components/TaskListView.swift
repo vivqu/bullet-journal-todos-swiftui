@@ -44,6 +44,7 @@ struct TaskListView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
+            .environment(\.editMode, .constant(.active))
         }
     }
 

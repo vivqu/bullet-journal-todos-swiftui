@@ -19,11 +19,6 @@ struct ContentView: View {
         TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)
     ]
 
-    var filteredTasks: [TaskViewModel] {
-        mockTasks.filter { $0.focusArea == selectedFocusArea }
-            .sorted(by: { $0.sortOrder > $1.sortOrder })
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             WeekHeaderView(weekStartDate: Week.getCurrentWeekStart())
@@ -33,26 +28,32 @@ struct ContentView: View {
             FocusAreaToggle(selectedFocusArea: $selectedFocusArea)
                 .padding(.horizontal)
 
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(filteredTasks, id: \.sortOrder) { task in
-                    TaskRowView(task: binding(for: task))
-                }
-
-                CreateTaskButton {
+            TaskListView(
+                tasks: $mockTasks,
+                focusArea: selectedFocusArea,
+                onMove: handleMove,
+                onCreateTask: {
                     print("Create task button tapped")
                 }
-            }
-            .padding(.horizontal)
-
-            Spacer()
+            )
         }
     }
 
-    private func binding(for task: TaskViewModel) -> Binding<TaskViewModel> {
-        guard let index = mockTasks.firstIndex(where: { $0.sortOrder == task.sortOrder }) else {
-            fatalError("Task not found in mockTasks")
+    private func handleMove(from source: IndexSet, to destination: Int) {
+        // Get filtered tasks for current focus area
+        var filteredTasks = mockTasks.filter { $0.focusArea == selectedFocusArea }
+            .sorted(by: { $0.sortOrder > $1.sortOrder })
+
+        // Reorder the filtered array
+        filteredTasks.move(fromOffsets: source, toOffset: destination)
+
+        // Recalculate sortOrder values (highest to lowest)
+        let count = filteredTasks.count
+        for (index, task) in filteredTasks.enumerated() {
+            if let originalIndex = mockTasks.firstIndex(where: { $0.sortOrder == task.sortOrder && $0.focusArea == task.focusArea }) {
+                mockTasks[originalIndex].sortOrder = count - 1 - index
+            }
         }
-        return $mockTasks[index]
     }
 }
 

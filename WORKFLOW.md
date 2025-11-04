@@ -139,3 +139,21 @@ xcrun simctl list devices available | grep "iPhone"
 ### Simulator shows old version of app
 - Uninstall app from simulator first: `xcrun simctl uninstall booted com.vivqu.BulletJournalTodos`
 - Clean build folder: `cd BulletJournalTodos && xcodebuild clean`
+
+## End of Task - Branch Merging
+
+**IMPORTANT: Before starting a new task, check if the current branch should be merged into main.**
+
+After completing a task and receiving user approval:
+
+1. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
+
+2. **If yes, merge the branch:**
+   ```bash
+   git checkout main
+   git merge <branch-name> --no-ff -m "Merge <task-description>"
+   ```
+
+3. **If no, continue on the same branch** for the next task. This allows related work to stay together before merging into main.
+
+This ensures completed work is integrated into main at appropriate checkpoints while giving you control over when merges happen.

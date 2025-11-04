@@ -19,6 +19,11 @@ struct ContentView: View {
         TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)
     ]
 
+    var filteredTasks: [TaskViewModel] {
+        mockTasks.filter { $0.focusArea == selectedFocusArea }
+            .sorted(by: { $0.sortOrder > $1.sortOrder })
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             WeekHeaderView(weekStartDate: Week.getCurrentWeekStart())
@@ -29,7 +34,7 @@ struct ContentView: View {
                 .padding(.horizontal)
 
             VStack(alignment: .leading, spacing: 8) {
-                ForEach(mockTasks.sorted(by: { $0.sortOrder > $1.sortOrder }), id: \.sortOrder) { task in
+                ForEach(filteredTasks, id: \.sortOrder) { task in
                     TaskRowView(task: binding(for: task))
                 }
 

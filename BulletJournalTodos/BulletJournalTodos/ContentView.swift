@@ -11,6 +11,8 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var selectedFocusArea: FocusArea = .life
+    @State private var showAddTaskSheet = false
+    @State private var taskToEdit: Task?
     @State private var mockTasks: [Task] = {
         let week = Week(startDate: Week.getCurrentWeekStart())
         return [
@@ -36,9 +38,24 @@ struct ContentView: View {
                 focusArea: selectedFocusArea,
                 onMove: handleMove,
                 onCreateTask: {
-                    print("Create task button tapped")
+                    taskToEdit = nil
+                    showAddTaskSheet = true
                 }
             )
+        }
+        .sheet(isPresented: $showAddTaskSheet) {
+            VStack {
+                Spacer()
+                AddTaskSheet(task: taskToEdit) { text in
+                    print("Task submitted: \(text)")
+                    // TODO: Create or update task in SwiftData
+                }
+                .padding(.bottom, 0)
+            }
+            .background(Color.white)
+            .presentationDetents([.height(100)])
+            .presentationDragIndicator(.visible)
+            .presentationBackgroundInteraction(.enabled)
         }
     }
 

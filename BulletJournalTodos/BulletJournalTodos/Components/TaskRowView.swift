@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskRowView: View {
-    @Binding var task: TaskViewModel
+    @Binding var task: Task
 
     var body: some View {
         HStack(spacing: 12) {
@@ -35,29 +35,30 @@ struct TaskRowView: View {
 
 // MARK: - Preview Data
 
-struct TaskViewModel: Identifiable {
-    let id = UUID()
-    var text: String
-    var isComplete: Bool
-    var sortOrder: Int
-    var focusArea: FocusArea
-}
-
 #Preview("Incomplete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)))
+    let week = Week(startDate: Week.getCurrentWeekStart())
+    let task = Task(text: "Example todo 1", isComplete: false, focusArea: .life, sortOrder: 0, week: week)
+    return TaskRowView(task: .constant(task))
         .padding()
 }
 
 #Preview("Complete Task") {
-    TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: true, sortOrder: 1, focusArea: .life)))
+    let week = Week(startDate: Week.getCurrentWeekStart())
+    let task = Task(text: "Example todo 2", isComplete: true, focusArea: .life, sortOrder: 1, week: week)
+    return TaskRowView(task: .constant(task))
         .padding()
 }
 
 #Preview("Multiple Tasks") {
-    VStack(alignment: .leading, spacing: 8) {
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2, focusArea: .life)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1, focusArea: .work)))
-        TaskRowView(task: .constant(TaskViewModel(text: "Example todo 1", isComplete: true, sortOrder: 0, focusArea: .life)))
+    let week = Week(startDate: Week.getCurrentWeekStart())
+    let task1 = Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week)
+    let task2 = Task(text: "Example todo 2", isComplete: false, focusArea: .work, sortOrder: 1, week: week)
+    let task3 = Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0, week: week)
+
+    return VStack(alignment: .leading, spacing: 8) {
+        TaskRowView(task: .constant(task1))
+        TaskRowView(task: .constant(task2))
+        TaskRowView(task: .constant(task3))
     }
     .padding()
 }

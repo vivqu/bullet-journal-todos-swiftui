@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @Binding var tasks: [TaskViewModel]
+    @Binding var tasks: [Task]
     let focusArea: FocusArea
     let onMove: (IndexSet, Int) -> Void
     let onCreateTask: () -> Void
 
-    var filteredTasks: [TaskViewModel] {
+    var filteredTasks: [Task] {
         tasks.filter { $0.focusArea == focusArea }
             .sorted(by: { $0.sortOrder > $1.sortOrder })
     }
@@ -48,7 +48,7 @@ struct TaskListView: View {
         }
     }
 
-    private func binding(for task: TaskViewModel) -> Binding<TaskViewModel> {
+    private func binding(for task: Task) -> Binding<Task> {
         guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
             fatalError("Task not found in tasks array")
         }
@@ -66,11 +66,12 @@ struct TaskListView: View {
 }
 
 #Preview("With Tasks") {
-    TaskListView(
+    let week = Week(startDate: Week.getCurrentWeekStart())
+    return TaskListView(
         tasks: .constant([
-            TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2, focusArea: .life),
-            TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1, focusArea: .life),
-            TaskViewModel(text: "Example todo 1", isComplete: true, sortOrder: 0, focusArea: .life)
+            Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week),
+            Task(text: "Example todo 2", isComplete: false, focusArea: .life, sortOrder: 1, week: week),
+            Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0, week: week)
         ]),
         focusArea: .life,
         onMove: { _, _ in },
@@ -79,10 +80,11 @@ struct TaskListView: View {
 }
 
 #Preview("Work Focus Area") {
-    TaskListView(
+    let week = Week(startDate: Week.getCurrentWeekStart())
+    return TaskListView(
         tasks: .constant([
-            TaskViewModel(text: "Example work 2", isComplete: false, sortOrder: 1, focusArea: .work),
-            TaskViewModel(text: "Example work 1", isComplete: false, sortOrder: 0, focusArea: .work)
+            Task(text: "Example work 2", isComplete: false, focusArea: .work, sortOrder: 1, week: week),
+            Task(text: "Example work 1", isComplete: false, focusArea: .work, sortOrder: 0, week: week)
         ]),
         focusArea: .work,
         onMove: { _, _ in },

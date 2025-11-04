@@ -14,7 +14,8 @@ enum FocusArea: String, Codable {
 }
 
 @Model
-final class Task {
+final class Task: Identifiable {
+    var id: UUID
     var text: String
     var isComplete: Bool
     var focusArea: FocusArea
@@ -23,6 +24,7 @@ final class Task {
     var week: Week
 
     init(text: String, isComplete: Bool = false, focusArea: FocusArea, sortOrder: Int, week: Week) {
+        self.id = UUID()
         self.text = text
         self.isComplete = isComplete
         self.focusArea = focusArea

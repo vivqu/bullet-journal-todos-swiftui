@@ -84,6 +84,14 @@
   - Verify empty state shows button
   - Note: handleMove() recalculates sortOrder values after reordering
 
+- [x] 13.5. Move UUID to Task model for stable identity
+  - Added `id: UUID` property to Task model
+  - Made Task conform to Identifiable protocol
+  - Initialize UUID in Task initializer with `self.id = UUID()`
+  - Removed TaskViewModel struct - use Task model directly everywhere
+  - Updated TaskRowView, TaskListView, and ContentView to use Task instead of TaskViewModel
+  - Benefits: Eliminates redundancy, ensures UUID persistence with SwiftData, simpler architecture
+
 - [ ] 14. Build AddTaskSheet
   - Bottom sheet modal with rounded container
   - TextField with auto-focus (`.focused` modifier)

@@ -11,13 +11,16 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var selectedFocusArea: FocusArea = .life
-    @State private var mockTasks: [TaskViewModel] = [
-        TaskViewModel(text: "Example todo 5", isComplete: false, sortOrder: 4, focusArea: .work),
-        TaskViewModel(text: "Example todo 4", isComplete: false, sortOrder: 3, focusArea: .work),
-        TaskViewModel(text: "Example todo 3", isComplete: false, sortOrder: 2, focusArea: .life),
-        TaskViewModel(text: "Example todo 2", isComplete: false, sortOrder: 1, focusArea: .life),
-        TaskViewModel(text: "Example todo 1", isComplete: false, sortOrder: 0, focusArea: .life)
-    ]
+    @State private var mockTasks: [Task] = {
+        let week = Week(startDate: Week.getCurrentWeekStart())
+        return [
+            Task(text: "Example todo 5", isComplete: false, focusArea: .work, sortOrder: 4, week: week),
+            Task(text: "Example todo 4", isComplete: false, focusArea: .work, sortOrder: 3, week: week),
+            Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week),
+            Task(text: "Example todo 2", isComplete: false, focusArea: .life, sortOrder: 1, week: week),
+            Task(text: "Example todo 1", isComplete: false, focusArea: .life, sortOrder: 0, week: week)
+        ]
+    }()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

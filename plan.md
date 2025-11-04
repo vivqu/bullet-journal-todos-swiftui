@@ -68,7 +68,7 @@
   - Verify toggle switches and colors update
   - Added filtering logic: tasks filtered by selectedFocusArea
 
-- [ ] 12. Build TaskListView
+- [x] 12. Build TaskListView
   - Scrollable List of TaskRows
   - Accepts array of tasks + focusArea filter
   - Sorted by `sortOrder` descending (highest first)

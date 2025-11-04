@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-@import DEFAULT_TASK_WORKFLOW.md
+@DEFAULT_TASK_WORKFLOW.md
 
 ## Project Overview
 

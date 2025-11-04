@@ -92,19 +92,22 @@
   - Updated TaskRowView, TaskListView, and ContentView to use Task instead of TaskViewModel
   - Benefits: Eliminates redundancy, ensures UUID persistence with SwiftData, simpler architecture
 
-- [ ] 14. Build AddTaskSheet
+- [x] 14. Build AddTaskSheet
   - Bottom sheet modal with rounded container
   - TextField with auto-focus (`.focused` modifier)
   - Blue circular "+" button (right-aligned)
   - On submit: clear text field, dismiss sheet
   - Swipe down or tap outside to dismiss
+  - Note: Sheet accepts optional Task parameter (nil for new task, Task for editing)
+  - Note: Integrated into ContentView with `.sheet()` modifier and white background
 
-- [ ] 15. Wire AddTaskSheet to CreateTaskButton for testing
+- [x] 15. Wire AddTaskSheet to CreateTaskButton for testing
   - CreateTaskButton sets @State to show sheet
   - Sheet presents with TextField focused
   - Enter text and press "+" dismisses sheet
   - Verify swipe-to-dismiss works
   - Verify keyboard appears/dismisses correctly
+  - Note: Completed together with task 14 - sheet fully functional and tested
 
 ## Phase 3: Data Integration (Consolidated)
 

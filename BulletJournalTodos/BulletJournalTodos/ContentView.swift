@@ -50,7 +50,7 @@ struct ContentView: View {
         // Recalculate sortOrder values (highest to lowest)
         let count = filteredTasks.count
         for (index, task) in filteredTasks.enumerated() {
-            if let originalIndex = mockTasks.firstIndex(where: { $0.sortOrder == task.sortOrder && $0.focusArea == task.focusArea }) {
+            if let originalIndex = mockTasks.firstIndex(where: { $0.id == task.id }) {
                 mockTasks[originalIndex].sortOrder = count - 1 - index
             }
         }

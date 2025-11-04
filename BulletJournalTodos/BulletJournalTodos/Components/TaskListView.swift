@@ -30,7 +30,7 @@ struct TaskListView: View {
         } else {
             // Show tasks in a List with CreateTaskButton at bottom
             List {
-                ForEach(Array(filteredTasks.enumerated()), id: \.element.sortOrder) { index, task in
+                ForEach(filteredTasks) { task in
                     TaskRowView(task: binding(for: task))
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
@@ -49,7 +49,7 @@ struct TaskListView: View {
     }
 
     private func binding(for task: TaskViewModel) -> Binding<TaskViewModel> {
-        guard let index = tasks.firstIndex(where: { $0.sortOrder == task.sortOrder }) else {
+        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
             fatalError("Task not found in tasks array")
         }
         return $tasks[index]

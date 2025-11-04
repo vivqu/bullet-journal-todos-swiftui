@@ -35,7 +35,8 @@ struct TaskRowView: View {
 
 // MARK: - Preview Data
 
-struct TaskViewModel {
+struct TaskViewModel: Identifiable {
+    let id = UUID()
     var text: String
     var isComplete: Bool
     var sortOrder: Int

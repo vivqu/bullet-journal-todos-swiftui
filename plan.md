@@ -74,12 +74,15 @@
   - Sorted by `sortOrder` descending (highest first)
   - `.onMove` modifier for drag-to-reorder
   - CreateTaskButton at bottom (or as empty state)
+  - Note: TaskViewModel made Identifiable with stable UUID for smooth drag-to-reorder
+  - Note: Added `.environment(\.editMode, .constant(.active))` to enable drag handles
 
-- [ ] 13. Add TaskListView to main screen with mock data
+- [x] 13. Add TaskListView to main screen with mock data
   - Replace current VStack with TaskListView component
   - Add `.onMove` modifier for drag-to-reorder
   - Verify drag-to-reorder updates visual order
   - Verify empty state shows button
+  - Note: handleMove() recalculates sortOrder values after reordering
 
 - [ ] 14. Build AddTaskSheet
   - Bottom sheet modal with rounded container

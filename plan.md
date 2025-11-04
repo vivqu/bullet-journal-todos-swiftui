@@ -57,7 +57,7 @@
   - Add @State for mock completion toggling
   - Verify checkbox interaction
 
-- [ ] 10. Build FocusAreaToggle
+- [x] 10. Build FocusAreaToggle
   - "LIFE / WORK" side-by-side buttons
   - Blue text for active, black for inactive
   - Takes binding to FocusArea selection

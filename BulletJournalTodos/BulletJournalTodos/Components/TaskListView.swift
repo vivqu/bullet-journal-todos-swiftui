@@ -23,8 +23,10 @@ struct TaskListView: View {
             // Empty state: show CreateTaskButton
             VStack(alignment: .leading, spacing: 8) {
                 CreateTaskButton(action: onCreateTask)
+                Spacer()
             }
             .padding(.horizontal)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         } else {
             // Show tasks in a List with CreateTaskButton at bottom
             List {

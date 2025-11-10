@@ -21,14 +21,27 @@ struct ContentView: View {
         return weeks.first { $0.startDate == currentWeekStart }
     }
 
-    // Get all tasks sorted by sortOrder descending
-    @Query(sort: \Task.sortOrder, order: .reverse) private var allTasks: [Task]
-
-    // Filter tasks by current week and selected focus area
-    private var filteredTasks: [Task] {
+    // Query tasks for current week only (database-level filtering by week)
+    // This significantly reduces memory usage compared to loading all tasks
+    private var currentWeekTasks: [Task] {
         guard let currentWeek = currentWeek else { return [] }
-        return allTasks.filter { task in
-            task.week.startDate == currentWeek.startDate && task.focusArea == selectedFocusArea
+
+        let weekStart = currentWeek.startDate
+
+        let descriptor = FetchDescriptor<Task>(
+            predicate: #Predicate { task in
+                task.week.startDate == weekStart
+            },
+            sortBy: [SortDescriptor(\.sortOrder, order: .reverse)]
+        )
+
+        return (try? modelContext.fetch(descriptor)) ?? []
+    }
+
+    // Filter by selected focus area (in-memory filtering for dynamic state)
+    private var filteredTasks: [Task] {
+        currentWeekTasks.filter { task in
+            task.focusArea == selectedFocusArea
         }
     }
 

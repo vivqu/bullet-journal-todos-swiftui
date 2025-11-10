@@ -111,7 +111,7 @@
 
 ## Phase 3: Data Integration (Consolidated)
 
-- [ ] 16. Set up data query and context in main view
+- [x] 16. Set up data query and context in main view
   - Add `@Query` for current week's tasks
   - Add `@Environment(\.modelContext)` for mutations
   - Replace WeekHeaderView hardcoded date with current week date

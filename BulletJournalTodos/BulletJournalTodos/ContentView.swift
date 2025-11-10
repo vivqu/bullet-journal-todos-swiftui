@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \Task.sortOrder, order: .reverse) private var allTasks: [Task]
     @Query private var weeks: [Week]
     @State private var selectedFocusArea: FocusArea = .life
     @State private var showAddTaskSheet = false
@@ -21,6 +20,9 @@ struct ContentView: View {
         let currentWeekStart = Week.getCurrentWeekStart()
         return weeks.first { $0.startDate == currentWeekStart }
     }
+
+    // Get all tasks sorted by sortOrder descending
+    @Query(sort: \Task.sortOrder, order: .reverse) private var allTasks: [Task]
 
     // Filter tasks by current week and selected focus area
     private var filteredTasks: [Task] {

@@ -50,7 +50,18 @@ This document outlines the development workflow for this project when working wi
      -destination 'platform=iOS Simulator,name=iPhone 17' build
    ```
 
-2. **Run the app in iOS Simulator** for user review:
+2. **Run unit tests** to verify correctness:
+   ```bash
+   # From project root (bullet-journal-todos-swiftui/)
+   xcodebuild test -scheme BulletJournalTodos \
+     -project BulletJournalTodos/BulletJournalTodos.xcodeproj \
+     -destination 'platform=iOS Simulator,name=iPhone 17'
+   ```
+   - All tests must pass before proceeding
+   - If tests fail, fix the issues and re-run
+   - Test output will show which specific tests failed and why
+
+3. **Run the app in iOS Simulator** for user review:
    ```bash
    # Boot an iOS 17+ simulator if needed
    open -a Simulator
@@ -63,22 +74,22 @@ This document outlines the development workflow for this project when working wi
    xcrun simctl launch booted com.vivqu.BulletJournalTodos
    ```
 
-3. **Take a screenshot** (optional, for documentation):
+4. **Take a screenshot** (optional, for documentation):
    ```bash
    xcrun simctl io booted screenshot screenshot-task-<N>.png
    ```
 
-4. **Wait for user approval** before proceeding to the next task
+5. **Wait for user approval** before proceeding to the next task
    - User will review the running app in simulator
    - User may request changes or approve to continue
 
-5. **Review code for style and language compliance:**
+6. **Review code for style and language compliance:**
    - Review all modified Swift files against the style guide in `docs/swift.md`
    - Fix any violations (e.g., force unwrapping, naming conventions, etc.)
    - Ensure code follows Swift best practices and project conventions
    - Re-run tests after style fixes to verify correctness
 
-6. **After user approval, update plan.md:**
+7. **After user approval, update plan.md:**
    - Mark the completed task with `[x]` in plan.md
    - Example: Change `- [ ] 1. Create SwiftData models` to `- [x] 1. Create SwiftData models`
    - This keeps the plan in sync with actual progress

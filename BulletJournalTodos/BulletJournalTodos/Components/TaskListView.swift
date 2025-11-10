@@ -13,13 +13,8 @@ struct TaskListView: View {
     let onMove: (IndexSet, Int) -> Void
     let onCreateTask: () -> Void
 
-    var filteredTasks: [Task] {
-        tasks.filter { $0.focusArea == focusArea }
-            .sorted(by: { $0.sortOrder > $1.sortOrder })
-    }
-
     var body: some View {
-        if filteredTasks.isEmpty {
+        if tasks.isEmpty {
             // Empty state: show CreateTaskButton
             VStack(alignment: .leading, spacing: 8) {
                 CreateTaskButton(action: onCreateTask)
@@ -30,7 +25,7 @@ struct TaskListView: View {
         } else {
             // Show tasks in a List with CreateTaskButton at bottom
             List {
-                ForEach(filteredTasks) { task in
+                ForEach(tasks) { task in
                     TaskRowView(task: binding(for: task))
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))

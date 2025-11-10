@@ -10,19 +10,25 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Task.sortOrder, order: .reverse) private var allTasks: [Task]
+    @Query private var weeks: [Week]
     @State private var selectedFocusArea: FocusArea = .life
     @State private var showAddTaskSheet = false
     @State private var taskToEdit: Task?
-    @State private var mockTasks: [Task] = {
-        let week = Week(startDate: Week.getCurrentWeekStart())
-        return [
-            Task(text: "Example todo 5", isComplete: false, focusArea: .work, sortOrder: 4, week: week),
-            Task(text: "Example todo 4", isComplete: false, focusArea: .work, sortOrder: 3, week: week),
-            Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week),
-            Task(text: "Example todo 2", isComplete: false, focusArea: .life, sortOrder: 1, week: week),
-            Task(text: "Example todo 1", isComplete: false, focusArea: .life, sortOrder: 0, week: week)
-        ]
-    }()
+
+    // Get the current week
+    private var currentWeek: Week? {
+        let currentWeekStart = Week.getCurrentWeekStart()
+        return weeks.first { $0.startDate == currentWeekStart }
+    }
+
+    // Filter tasks by current week and selected focus area
+    private var filteredTasks: [Task] {
+        guard let currentWeek = currentWeek else { return [] }
+        return allTasks.filter { task in
+            task.week.startDate == currentWeek.startDate && task.focusArea == selectedFocusArea
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -34,7 +40,13 @@ struct ContentView: View {
                 .padding(.horizontal)
 
             TaskListView(
-                tasks: $mockTasks,
+                tasks: Binding(
+                    get: { filteredTasks },
+                    set: { newTasks in
+                        // Updates to individual tasks are handled through bindings in TaskRowView
+                        // We don't need to handle the set case here since tasks are updated directly via modelContext
+                    }
+                ),
                 focusArea: selectedFocusArea,
                 onMove: handleMove,
                 onCreateTask: {
@@ -56,19 +68,23 @@ struct ContentView: View {
     }
 
     private func handleMove(from source: IndexSet, to destination: Int) {
-        // Get filtered tasks for current focus area
-        var filteredTasks = mockTasks.filter { $0.focusArea == selectedFocusArea }
-            .sorted(by: { $0.sortOrder > $1.sortOrder })
+        // Get filtered tasks for current focus area, sorted by sortOrder descending
+        var tasksToReorder = filteredTasks
 
         // Reorder the filtered array
-        filteredTasks.move(fromOffsets: source, toOffset: destination)
+        tasksToReorder.move(fromOffsets: source, toOffset: destination)
 
         // Recalculate sortOrder values (highest to lowest)
-        let count = filteredTasks.count
-        for (index, task) in filteredTasks.enumerated() {
-            if let originalIndex = mockTasks.firstIndex(where: { $0.id == task.id }) {
-                mockTasks[originalIndex].sortOrder = count - 1 - index
-            }
+        let count = tasksToReorder.count
+        for (index, task) in tasksToReorder.enumerated() {
+            task.sortOrder = count - 1 - index
+        }
+
+        // Save changes to SwiftData
+        do {
+            try modelContext.save()
+        } catch {
+            assertionFailure("⚠️ Failed to save reordered tasks: \(error)")
         }
     }
 }

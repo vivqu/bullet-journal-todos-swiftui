@@ -119,10 +119,12 @@
 
 - [x] 17. Wire TaskListView to SwiftData queries
   - Replace mock tasks with filtered `@Query` results
-  - Filter by `selectedFocusArea` in ContentView (in-memory filtering for dynamic state)
-  - Sort by `sortOrder` descending via @Query
+  - Filter by week at database level using FetchDescriptor + #Predicate (reduces memory footprint)
+  - Filter by `selectedFocusArea` in-memory (smaller dataset, maintains dynamic behavior)
+  - Sort by `sortOrder` descending via database query
   - Verify empty state when no tasks exist
   - Note: Removed redundant filtering from TaskListView - now receives pre-filtered tasks from ContentView
+  - Note: Optimized for production - only loads current week's tasks from database
 
 - [ ] 18. Implement task creation flow
   - On AddTaskSheet submit:

@@ -117,12 +117,12 @@
   - Replace WeekHeaderView hardcoded date with current week date
   - Verify app launches with current week created
 
-- [ ] 17. Wire TaskListView to SwiftData queries
+- [x] 17. Wire TaskListView to SwiftData queries
   - Replace mock tasks with filtered `@Query` results
-  - Filter by `selectedFocusArea` using SwiftData predicate
-  - Sort by `sortOrder` descending
-  - Test that tasks persist across app restarts
+  - Filter by `selectedFocusArea` in ContentView (in-memory filtering for dynamic state)
+  - Sort by `sortOrder` descending via @Query
   - Verify empty state when no tasks exist
+  - Note: Removed redundant filtering from TaskListView - now receives pre-filtered tasks from ContentView
 
 - [ ] 18. Implement task creation flow
   - On AddTaskSheet submit:

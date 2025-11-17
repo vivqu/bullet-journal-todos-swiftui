@@ -24,22 +24,33 @@ struct TaskListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         } else {
             // Show tasks in a List with CreateTaskButton at bottom
-            List {
-                ForEach(tasks) { task in
-                    TaskRowView(task: binding(for: task))
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                }
-                .onMove(perform: onMove)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach(tasks) { task in
+                        TaskRowView(task: binding(for: task))
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                            .id(task.id)
+                    }
+                    .onMove(perform: onMove)
 
-                // CreateTaskButton at the bottom of the list
-                CreateTaskButton(action: onCreateTask)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    // CreateTaskButton at the bottom of the list
+                    CreateTaskButton(action: onCreateTask)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .environment(\.editMode, .constant(.active))
+                .onChange(of: tasks.count) { oldCount, newCount in
+                    // Scroll to top when a new task is added
+                    if newCount > oldCount, let firstTask = tasks.first {
+                        withAnimation {
+                            proxy.scrollTo(firstTask.id, anchor: .top)
+                        }
+                    }
+                }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .environment(\.editMode, .constant(.active))
         }
     }
 

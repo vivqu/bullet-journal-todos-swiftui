@@ -72,8 +72,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showAddTaskSheet) {
             AddTaskSheet(task: taskToEdit) { text in
-                print("Task submitted: \(text)")
-                // TODO: Create or update task in SwiftData
+                handleTaskSubmit(text: text)
             }
             .presentationDetents([.height(100)])
             .presentationDragIndicator(.visible)
@@ -100,6 +99,36 @@ struct ContentView: View {
             try modelContext.save()
         } catch {
             assertionFailure("⚠️ Failed to save reordered tasks: \(error)")
+        }
+    }
+
+    private func handleTaskSubmit(text: String) {
+        guard let currentWeek else {
+            assertionFailure("⚠️ Cannot create task: current week not found")
+            return
+        }
+
+        // Calculate new sortOrder: max sortOrder in current focus area + 1, or 0 if no tasks
+        let maxSortOrder = filteredTasks.map { $0.sortOrder }.max() ?? -1
+        let newSortOrder = maxSortOrder + 1
+
+        // Create new task
+        let newTask = Task(
+            text: text,
+            isComplete: false,
+            focusArea: selectedFocusArea,
+            sortOrder: newSortOrder,
+            week: currentWeek
+        )
+
+        // Insert into modelContext
+        modelContext.insert(newTask)
+
+        // Save changes
+        do {
+            try modelContext.save()
+        } catch {
+            assertionFailure("⚠️ Failed to save new task: \(error)")
         }
     }
 }

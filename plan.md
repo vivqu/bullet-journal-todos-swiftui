@@ -138,10 +138,12 @@
   - Note: Fixed SwiftData crash by making Task.week optional and setting relationship after insert
   - Note: Updated all Task initializations across tests and previews to use new pattern
 
-- [ ] 19. Implement task completion toggle
+- [x] 19. Implement task completion toggle
   - Wire TaskRowView checkbox to update Task.isComplete in SwiftData
   - Verify changes persist
   - Test toggling multiple tasks
+  - Note: Added modelContext environment to TaskRowView for explicit save on toggle
+  - Note: Uses assertionFailure for error handling to allow app to continue gracefully
 
 - [ ] 20. Implement drag-to-reorder with sortOrder updates
   - On `.onMove`:

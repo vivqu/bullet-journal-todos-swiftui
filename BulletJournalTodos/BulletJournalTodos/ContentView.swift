@@ -30,7 +30,7 @@ struct ContentView: View {
 
         let descriptor = FetchDescriptor<Task>(
             predicate: #Predicate { task in
-                task.week.startDate == weekStart
+                task.week?.startDate == weekStart
             },
             sortBy: [SortDescriptor(\.sortOrder, order: .reverse)]
         )
@@ -112,17 +112,19 @@ struct ContentView: View {
         let maxSortOrder = filteredTasks.map { $0.sortOrder }.max() ?? -1
         let newSortOrder = maxSortOrder + 1
 
-        // Create new task
+        // Create new task (without week to avoid relationship crash)
         let newTask = Task(
             text: text,
             isComplete: false,
             focusArea: selectedFocusArea,
-            sortOrder: newSortOrder,
-            week: currentWeek
+            sortOrder: newSortOrder
         )
 
-        // Insert into modelContext
+        // Insert into modelContext first
         modelContext.insert(newTask)
+
+        // Now set the week relationship after task is managed by context
+        newTask.week = currentWeek
 
         // Save changes
         do {

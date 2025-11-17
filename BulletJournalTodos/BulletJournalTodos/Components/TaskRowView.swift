@@ -37,23 +37,28 @@ struct TaskRowView: View {
 
 #Preview("Incomplete Task") {
     let week = Week(startDate: Week.getCurrentWeekStart())
-    let task = Task(text: "Example todo 1", isComplete: false, focusArea: .life, sortOrder: 0, week: week)
+    let task = Task(text: "Example todo 1", isComplete: false, focusArea: .life, sortOrder: 0)
+    task.week = week
     return TaskRowView(task: .constant(task))
         .padding()
 }
 
 #Preview("Complete Task") {
     let week = Week(startDate: Week.getCurrentWeekStart())
-    let task = Task(text: "Example todo 2", isComplete: true, focusArea: .life, sortOrder: 1, week: week)
+    let task = Task(text: "Example todo 2", isComplete: true, focusArea: .life, sortOrder: 1)
+    task.week = week
     return TaskRowView(task: .constant(task))
         .padding()
 }
 
 #Preview("Multiple Tasks") {
     let week = Week(startDate: Week.getCurrentWeekStart())
-    let task1 = Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week)
-    let task2 = Task(text: "Example todo 2", isComplete: false, focusArea: .work, sortOrder: 1, week: week)
-    let task3 = Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0, week: week)
+    let task1 = Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2)
+    task1.week = week
+    let task2 = Task(text: "Example todo 2", isComplete: false, focusArea: .work, sortOrder: 1)
+    task2.week = week
+    let task3 = Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0)
+    task3.week = week
 
     return VStack(alignment: .leading, spacing: 8) {
         TaskRowView(task: .constant(task1))

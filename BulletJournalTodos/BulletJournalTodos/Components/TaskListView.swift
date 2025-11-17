@@ -24,22 +24,33 @@ struct TaskListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         } else {
             // Show tasks in a List with CreateTaskButton at bottom
-            List {
-                ForEach(tasks) { task in
-                    TaskRowView(task: binding(for: task))
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                }
-                .onMove(perform: onMove)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach(tasks) { task in
+                        TaskRowView(task: binding(for: task))
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                            .id(task.id)
+                    }
+                    .onMove(perform: onMove)
 
-                // CreateTaskButton at the bottom of the list
-                CreateTaskButton(action: onCreateTask)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    // CreateTaskButton at the bottom of the list
+                    CreateTaskButton(action: onCreateTask)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .environment(\.editMode, .constant(.active))
+                .onChange(of: tasks.count) { oldCount, newCount in
+                    // Scroll to top when a new task is added
+                    if newCount > oldCount, let firstTask = tasks.first {
+                        withAnimation {
+                            proxy.scrollTo(firstTask.id, anchor: .top)
+                        }
+                    }
+                }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .environment(\.editMode, .constant(.active))
         }
     }
 
@@ -62,12 +73,15 @@ struct TaskListView: View {
 
 #Preview("With Tasks") {
     let week = Week(startDate: Week.getCurrentWeekStart())
+    let task1 = Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2)
+    task1.week = week
+    let task2 = Task(text: "Example todo 2", isComplete: false, focusArea: .life, sortOrder: 1)
+    task2.week = week
+    let task3 = Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0)
+    task3.week = week
+
     return TaskListView(
-        tasks: .constant([
-            Task(text: "Example todo 3", isComplete: false, focusArea: .life, sortOrder: 2, week: week),
-            Task(text: "Example todo 2", isComplete: false, focusArea: .life, sortOrder: 1, week: week),
-            Task(text: "Example todo 1", isComplete: true, focusArea: .life, sortOrder: 0, week: week)
-        ]),
+        tasks: .constant([task1, task2, task3]),
         focusArea: .life,
         onMove: { _, _ in },
         onCreateTask: { print("Create task tapped") }
@@ -76,11 +90,13 @@ struct TaskListView: View {
 
 #Preview("Work Focus Area") {
     let week = Week(startDate: Week.getCurrentWeekStart())
+    let task1 = Task(text: "Example work 2", isComplete: false, focusArea: .work, sortOrder: 1)
+    task1.week = week
+    let task2 = Task(text: "Example work 1", isComplete: false, focusArea: .work, sortOrder: 0)
+    task2.week = week
+
     return TaskListView(
-        tasks: .constant([
-            Task(text: "Example work 2", isComplete: false, focusArea: .work, sortOrder: 1, week: week),
-            Task(text: "Example work 1", isComplete: false, focusArea: .work, sortOrder: 0, week: week)
-        ]),
+        tasks: .constant([task1, task2]),
         focusArea: .work,
         onMove: { _, _ in },
         onCreateTask: { print("Create task tapped") }

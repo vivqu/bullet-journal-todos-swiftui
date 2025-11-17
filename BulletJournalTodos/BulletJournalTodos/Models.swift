@@ -21,22 +21,16 @@ final class Task: Identifiable {
     var focusArea: FocusArea
     var sortOrder: Int
     var createdAt: Date
-    var week: Week
+    var week: Week?
 
-    init(text: String, isComplete: Bool = false, focusArea: FocusArea, sortOrder: Int, week: Week) {
+    init(text: String, isComplete: Bool = false, focusArea: FocusArea, sortOrder: Int) {
         self.id = UUID()
         self.text = text
         self.isComplete = isComplete
         self.focusArea = focusArea
         self.sortOrder = sortOrder
         self.createdAt = Date()
-        self.week = week
-
-        // Validate that the week matches the current week
-        let currentWeekStart = Week.getCurrentWeekStart()
-        if week.startDate != currentWeekStart {
-            assertionFailure("⚠️ Developer Warning: Task created with week starting \(week.startDate), but current week starts \(currentWeekStart). Tasks should be created in the current week.")
-        }
+        // week must be set after task is inserted into modelContext
     }
 }
 

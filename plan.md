@@ -126,15 +126,17 @@
   - Note: Removed redundant filtering from TaskListView - now receives pre-filtered tasks from ContentView
   - Note: Optimized for production - only loads current week's tasks from database
 
-- [ ] 18. Implement task creation flow
+- [x] 18. Implement task creation flow
   - On AddTaskSheet submit:
     - Calculate new sortOrder (find max sortOrder + 1, or 0 if no tasks)
     - Create Task with text, current focusArea, new sortOrder, isComplete=false
-    - Insert into modelContext
+    - Insert into modelContext first, then set week relationship (to avoid SwiftData crash)
     - Clear text field and dismiss sheet
   - Add ScrollViewReader to TaskListView
   - Scroll to top after task creation
   - Test creating tasks in LIFE, then WORK, verify correct focus area
+  - Note: Fixed SwiftData crash by making Task.week optional and setting relationship after insert
+  - Note: Updated all Task initializations across tests and previews to use new pattern
 
 - [ ] 19. Implement task completion toggle
   - Wire TaskRowView checkbox to update Task.isComplete in SwiftData

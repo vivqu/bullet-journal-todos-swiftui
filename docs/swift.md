@@ -34,3 +34,42 @@ guard let monday = calendar.date(byAdding: .day, value: -daysFromMonday, to: tod
         .modelContainer(container)
 }
 ```
+
+## Declaring variables
+
+To bypass null checks, always prefer `guard ... else` with early returns. Also, 
+do not repeat the variable if it is not necessary:
+
+✅ **Good:**
+```swift
+guard let currentWeek else { return }
+let newTask = Task(
+    text: text,
+    isComplete: false,
+    focusArea: selectedFocusArea,
+    sortOrder: newSortOrder,
+    week: currentWeek
+)
+```
+❌ **Bad:**
+```swift
+guard let currentWeek = currentWeek else { return }
+let newTask = Task(
+    text: text,
+    isComplete: false,
+    focusArea: selectedFocusArea,
+    sortOrder: newSortOrder,
+    week: currentWeek
+)
+
+// OR
+if let currentWeek = currentWeek {
+    let newTask = Task(
+        text: text,
+        isComplete: false,
+        focusArea: selectedFocusArea,
+        sortOrder: newSortOrder,
+        week: currentWeek
+    )
+}
+```

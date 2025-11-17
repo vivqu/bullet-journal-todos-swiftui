@@ -36,8 +36,8 @@ struct AddTaskSheet: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.vertical, 24)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding(.vertical, 16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .onAppear {
             // Initialize text from task if editing
             if let task = task {

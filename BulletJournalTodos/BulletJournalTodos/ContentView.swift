@@ -15,6 +15,14 @@ struct ContentView: View {
     @State private var showAddTaskSheet = false
     @State private var taskToEdit: Task?
 
+    private var sheetHeight: CGFloat {
+        if #available(iOS 26.0, *) {
+            return 100
+        } else {
+            return 80
+        }
+    }
+
     // Get the current week
     private var currentWeek: Week? {
         let currentWeekStart = Week.getCurrentWeekStart()
@@ -74,7 +82,7 @@ struct ContentView: View {
             AddTaskSheet(task: taskToEdit) { text in
                 handleTaskSubmit(text: text)
             }
-            .presentationDetents([.height(90)])
+            .presentationDetents([.height(sheetHeight)])
             .presentationDragIndicator(.visible)
             .presentationBackgroundInteraction(.enabled)
             .presentationBackground(.white)

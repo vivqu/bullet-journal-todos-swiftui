@@ -14,6 +14,14 @@ struct AddTaskSheet: View {
     @FocusState private var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
 
+    private var paddingValue: CGFloat {
+        if #available(iOS 26.0, *) {
+            return 16
+        } else {
+            return 8
+        }
+    }
+
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             TextField("", text: $text)
@@ -36,7 +44,7 @@ struct AddTaskSheet: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        .padding(.vertical, paddingValue)
         .frame(maxWidth: .infinity, alignment: .leading)
         .onAppear {
             // Initialize text from task if editing

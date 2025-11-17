@@ -74,7 +74,7 @@ struct ContentView: View {
             AddTaskSheet(task: taskToEdit) { text in
                 handleTaskSubmit(text: text)
             }
-            .presentationDetents([.height(100)])
+            .presentationDetents([.height(90)])
             .presentationDragIndicator(.visible)
             .presentationBackgroundInteraction(.enabled)
             .presentationBackground(.white)

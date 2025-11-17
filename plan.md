@@ -145,13 +145,14 @@
   - Note: Added modelContext environment to TaskRowView for explicit save on toggle
   - Note: Uses assertionFailure for error handling to allow app to continue gracefully
 
-- [ ] 20. Implement drag-to-reorder with sortOrder updates
+- [x] 20. Implement drag-to-reorder with sortOrder updates
   - On `.onMove`:
     - Reorder tasks array
     - Recalculate sortOrder values (highest to lowest)
     - Update each task's sortOrder in modelContext
   - Test reordering within LIFE and WORK separately
   - Verify order persists after app restart
+  - Note: Implemented version-specific sheet padding for iOS 17/18 vs iOS 26 compatibility
 
 ## Phase 4: Final Manual Testing & Polish
 

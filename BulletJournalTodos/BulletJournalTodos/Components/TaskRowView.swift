@@ -6,15 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TaskRowView: View {
     @Binding var task: Task
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         HStack(spacing: 12) {
             // Checkbox
             Button(action: {
                 task.isComplete.toggle()
+
+                // Save changes to SwiftData
+                do {
+                    try modelContext.save()
+                } catch {
+                    assertionFailure("⚠️ Failed to save task completion state: \(error)")
+                }
             }) {
                 Image(systemName: task.isComplete ? "checkmark.square" : "square")
                     .font(.system(size: 22))

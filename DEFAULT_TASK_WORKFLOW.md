@@ -102,6 +102,18 @@ This document outlines the development workflow for this project when working wi
    - Example: Change `- [ ] 1. Create SwiftData models` to `- [x] 1. Create SwiftData models`
    - This keeps the plan in sync with actual progress
 
+8. **Clean up temporary documentation files:**
+   - Review all files created during the task
+   - Delete task-specific temporary files (e.g., `TASK_23_SUMMARY.md`, `TESTING_LIMITATIONS.md`)
+   - Ask the user: "Should I synthesize the content from [temporary file names] into a reusable `docs/` page (or add to an existing one)?"
+   - If yes, create/update the appropriate `docs/` file with permanent, reusable content
+   - If no, simply delete the temporary files
+   - Examples of permanent documentation:
+     - Testing guides: `docs/ipad.md`, `docs/testing.md`
+     - Architecture notes: Add to `CLAUDE.md` or create `docs/architecture.md`
+     - Implementation patterns: Add to relevant `docs/` file
+   - Commit the cleanup separately from feature work
+
 ## Committing Changes
 
 When creating commits, follow these guidelines:

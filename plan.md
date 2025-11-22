@@ -173,6 +173,7 @@
   - Ensure checkbox styling matches mockup
   - Test smooth animations (sheet, keyboard, scroll)
   - Test on multiple iPhone simulator sizes (SE, 14, Pro Max)
+  - Test in both light and dark mode (verify system colors adapt properly)
 
 ---
 

@@ -27,14 +27,14 @@ struct TaskRowView: View {
             }) {
                 Image(systemName: task.isComplete ? "checkmark.square" : "square")
                     .font(.system(size: 24))
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             }
             .buttonStyle(.plain)
 
             // Task text
             Text(task.text)
                 .font(.body)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
 
             Spacer()
         }

@@ -12,20 +12,16 @@ Reference for iPad compatibility testing. Use MCP XcodeBuildMCP tools for automa
 6. Switch focus while sheet open, verify task goes to correct area
 7. Restart app, verify persistence
 8. Dark mode (use `set_sim_appearance`)
-9. Landscape rotation (verify with `describe_ui`)
-10. Verify reorder handles visible in UI hierarchy
+9. Rotation: Verify layout via `describe_ui` in portrait/landscape
+10. Verify reorder handles present in UI (actual reordering requires manual drag gesture)
 
 ## Manual Tests (Cannot Automate)
 
-**Drag-to-reorder**: Long-press + drag gesture. Simctl limitation.
+**Empty state deletion**: Swipe-left on row to reveal delete button. Simctl limitation.
 
-**Empty state deletion**: Swipe-left on row. Simctl limitation.
-
-**Split screen mode**: No simctl API. Test 50/50, 33/67, 67/33 splits.
+**Split screen mode**: No simctl API. Test 50/50, 33/67, 67/33 splits. Verify UI not stretched, sheet works.
 
 **Slide over mode**: No simctl API. Verify app usable with slide over.
-
-**Rotation with sheet open**: Sheet repositioning requires manual verification.
 
 ## UI Verification Specs
 

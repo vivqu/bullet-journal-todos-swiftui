@@ -197,6 +197,8 @@
     - Verify layout scales appropriately on larger screen
     - Check that UI doesn't look stretched or awkward
     - Test both portrait and landscape orientations
+    - Test split screen mode (1/2, 1/3, 2/3 split)
+    - Test slide over mode with another app
     - Verify keyboard behavior and sheet presentation on iPad
     - Take screenshots for documentation
 

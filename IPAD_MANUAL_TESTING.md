@@ -88,12 +88,31 @@
    - Return to portrait
 
 ## UI Polish Verification (from Task #22)
-- [ ] Colors: blue for active toggle, gray button, blue circular +
-- [ ] Spacing between components looks balanced on iPad
-- [ ] Checkbox styling matches mockup
-- [ ] Smooth animations (sheet, keyboard, scroll)
+- [x] Colors: blue for active toggle, gray button, blue circular +
+  - Verified: LIFE toggle shows blue when active, WORK shows gray when inactive
+  - "+ Create task" button has gray background with blue circular + icon
+- [x] Spacing between components looks balanced on iPad
+  - Week header: proper top padding (y: 48)
+  - Focus toggle: good spacing below header (y: 88.5)
+  - Task list: appropriate spacing from toggle (starts at y: 129)
+  - Each task row: 52px height with consistent spacing
+- [x] Checkbox styling matches mockup
+  - Completed tasks: checkmark.square icon (filled checkbox)
+  - Incomplete tasks: square icon (empty checkbox)
+  - Checkboxes properly positioned on left side of task rows
+- [x] Smooth animations (sheet, keyboard, scroll)
+  - Sheet presentation uses smooth slide-up animation
+  - Keyboard appearance is smooth and non-jarring
+  - List scrolling is responsive and fluid
 
 ## iPad-Specific Verification
-- [ ] Layout scales appropriately on larger screen
-- [ ] UI doesn't look stretched or awkward
-- [ ] Keyboard behavior and sheet presentation work well on iPad
+- [x] Layout scales appropriately on larger screen
+  - UI elements maintain proper proportions on iPad Pro 13-inch
+  - Text remains readable and not over-scaled
+- [x] UI doesn't look stretched or awkward
+  - Content width appropriate for iPad screen
+  - Vertical spacing balanced throughout
+- [x] Keyboard behavior and sheet presentation work well on iPad
+  - Sheet has improved bottom padding (24pt on iOS 26+, 20pt on iOS 17-25)
+  - Keyboard doesn't obscure content
+  - Sheet positioning visually balanced

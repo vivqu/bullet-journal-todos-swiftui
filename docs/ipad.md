@@ -4,7 +4,7 @@ Reference for iPad compatibility testing. Use MCP XcodeBuildMCP tools for automa
 
 ## Automated Tests
 
-1. Build and launch on iPad simulator (iPad Pro 13-inch recommended)
+1. Build and launch on iPad simulator
 2. Create tasks in LIFE and WORK focus areas
 3. Toggle between focus areas, verify filtering
 4. Complete/uncomplete tasks via checkbox

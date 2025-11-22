@@ -16,18 +16,18 @@ struct FocusAreaToggle: View {
                 selectedFocusArea = .life
             }) {
                 Text("LIFE")
-                    .foregroundColor(selectedFocusArea == .life ? .blue : .black)
+                    .foregroundColor(selectedFocusArea == .life ? .blue : .primary)
                     .font(.system(size: 17, weight: .regular))
             }
 
             Text("/")
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
 
             Button(action: {
                 selectedFocusArea = .work
             }) {
                 Text("WORK")
-                    .foregroundColor(selectedFocusArea == .work ? .blue : .black)
+                    .foregroundColor(selectedFocusArea == .work ? .blue : .primary)
                     .font(.system(size: 17, weight: .regular))
             }
         }

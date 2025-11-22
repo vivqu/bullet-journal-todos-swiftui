@@ -17,30 +17,9 @@ Reference for iPad compatibility testing. Use MCP XcodeBuildMCP tools for automa
 
 ## Manual Tests (Cannot Automate)
 
-**Empty state deletion**: Swipe-left on row to reveal delete button. Simctl limitation.
-
 **Split screen mode**: No simctl API. Test 50/50, 33/67, 67/33 splits. Verify UI not stretched, sheet works.
 
 **Slide over mode**: No simctl API. Verify app usable with slide over.
-
-## UI Verification Specs
-
-**Colors** (via describe_ui or screenshots):
-- Active toggle: blue
-- Inactive toggle: gray
-- "+ Create task": gray background, blue + icon
-
-**Spacing** (describe_ui frame data):
-- Week header: ~48px from top
-- Focus toggle: ~88px from top
-- Task list: ~129px from top
-- Task row height: 52px
-
-**Checkboxes**:
-- Completed: `checkmark.square` icon
-- Incomplete: `square` icon
-
-**Animations**: Sheet slide-up, keyboard, scrolling (visual verification)
 
 ## iPad-Specific Implementation
 

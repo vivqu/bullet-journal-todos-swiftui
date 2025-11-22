@@ -52,7 +52,7 @@
    - Test toggling focus areas
    - Verify sheet presentation looks correct
 
-### 5. Slide Over Mode  
+### 5. Slide Over Mode
 **Steps:**
 1. Open BulletJournalTodos in full screen
 2. Open another app (e.g., Notes)
@@ -62,6 +62,30 @@
    - BulletJournalTodos remains usable
    - Can create/complete tasks
    - Sheet presentation works correctly
+
+### 6. Rotation Testing
+**Steps:**
+1. Open BulletJournalTodos in portrait orientation
+2. Rotate device/simulator to landscape (Cmd+Left or Cmd+Right)
+3. Verify in landscape:
+   - Layout adapts properly (no clipped content)
+   - All UI elements remain accessible
+   - Focus area toggle remains visible
+   - "+ Create task" button positioned correctly
+   - Task list scrolls properly
+4. Open "+ Create task" sheet while in landscape
+5. Verify:
+   - Sheet appears correctly positioned
+   - Text field is usable
+   - Submit button accessible
+   - Keyboard doesn't obscure content
+6. Rotate back to portrait with sheet open
+7. Verify sheet repositions correctly
+8. Test rotation in split screen mode:
+   - Open split screen (50/50)
+   - Rotate to landscape
+   - Verify both apps handle rotation gracefully
+   - Return to portrait
 
 ## UI Polish Verification (from Task #22)
 - [ ] Colors: blue for active toggle, gray button, blue circular +

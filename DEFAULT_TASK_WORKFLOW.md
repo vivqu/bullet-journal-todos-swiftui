@@ -78,6 +78,14 @@ This document outlines the development workflow for this project when working wi
    ```bash
    xcrun simctl io booted screenshot screenshot-task-<N>.png
    ```
+   - **IMPORTANT: Screenshots are for testing documentation only**
+   - **Never commit screenshots to git**
+   - Before merging into main, delete all screenshot files:
+     ```bash
+     git rm screenshot-*.png
+     # Or if not yet committed:
+     rm screenshot-*.png
+     ```
 
 5. **Wait for user approval** before proceeding to the next task
    - User will review the running app in simulator
@@ -157,9 +165,17 @@ xcrun simctl list devices available | grep "iPhone"
 
 After completing a task and receiving user approval:
 
-1. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
+1. **Delete all testing screenshots before merging:**
+   ```bash
+   # Remove any screenshot files created during testing
+   git rm screenshot-*.png 2>/dev/null || rm screenshot-*.png 2>/dev/null
+   git commit -m "chore: remove testing screenshots" 2>/dev/null || true
+   ```
+   Screenshots are for manual verification only and should never be committed to main.
 
-2. **If yes, merge and clean up the branch:**
+2. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
+
+3. **If yes, merge and clean up the branch:**
    ```bash
    git checkout main
    git merge <branch-name> --no-ff -m "Merge <task-description>"

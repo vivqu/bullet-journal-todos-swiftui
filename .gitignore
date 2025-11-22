@@ -4,3 +4,4 @@
 BulletJournalTodos/build/
 *.xcuserstate
 *.xcuserdatad/
+.vscode/

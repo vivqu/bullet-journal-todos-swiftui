@@ -15,10 +15,12 @@ struct AddTaskSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     private var paddingValue: CGFloat {
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
+
         if #available(iOS 26.0, *) {
-            return 16
+            return isIPad ? 24 : 16
         } else {
-            return 8
+            return isIPad ? 20 : 8
         }
     }
 

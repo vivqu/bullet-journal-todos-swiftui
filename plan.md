@@ -156,7 +156,7 @@
 
 ## Phase 4: Final Manual Testing & Polish
 
-- [ ] 21. End-to-end manual testing
+- [x] 21. End-to-end manual testing
   - Create multiple tasks in LIFE focus area
   - Switch to WORK, create multiple tasks there
   - Toggle between LIFE/WORK, verify correct tasks shown

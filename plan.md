@@ -175,6 +175,33 @@
   - Test on multiple iPhone simulator sizes (SE, 14, Pro Max)
   - Test in both light and dark mode (verify system colors adapt properly)
 
+- [x] 23. iPad compatibility testing
+  - Build and run on iPad simulator (iPad Pro 13-inch or iPad Air)
+  - End-to-end manual testing (from Task #21):
+    - Create multiple tasks in LIFE focus area
+    - Switch to WORK, create multiple tasks there
+    - Toggle between LIFE/WORK, verify correct tasks shown
+    - Reorder tasks in each focus area independently
+    - Complete/uncomplete tasks, verify persistence
+    - Test empty state (delete all tasks in one area)
+    - Test sheet behaviors: swipe dismiss, tap outside, submit
+    - Test focus area switching while sheet is open
+    - Restart app, verify all data persists
+  - UI polish verification (from Task #22):
+    - Verify colors: blue for active toggle, gray button, blue circular +
+    - Check spacing between components
+    - Ensure checkbox styling matches mockup
+    - Test smooth animations (sheet, keyboard, scroll)
+    - Test in both light and dark mode (verify system colors adapt properly)
+  - iPad-specific testing:
+    - Verify layout scales appropriately on larger screen
+    - Check that UI doesn't look stretched or awkward
+    - Test both portrait and landscape orientations
+    - Test split screen mode (1/2, 1/3, 2/3 split)
+    - Test slide over mode with another app
+    - Verify keyboard behavior and sheet presentation on iPad
+    - Take screenshots for documentation
+
 ---
 
 ## Implementation Notes

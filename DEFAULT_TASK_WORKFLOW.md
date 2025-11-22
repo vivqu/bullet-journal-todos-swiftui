@@ -78,6 +78,14 @@ This document outlines the development workflow for this project when working wi
    ```bash
    xcrun simctl io booted screenshot screenshot-task-<N>.png
    ```
+   - **IMPORTANT: Screenshots are for testing documentation only**
+   - **Never commit screenshots to git**
+   - Before merging into main, delete all screenshot files:
+     ```bash
+     git rm screenshot-*.png
+     # Or if not yet committed:
+     rm screenshot-*.png
+     ```
 
 5. **Wait for user approval** before proceeding to the next task
    - User will review the running app in simulator
@@ -93,6 +101,18 @@ This document outlines the development workflow for this project when working wi
    - Mark the completed task with `[x]` in plan.md
    - Example: Change `- [ ] 1. Create SwiftData models` to `- [x] 1. Create SwiftData models`
    - This keeps the plan in sync with actual progress
+
+8. **Clean up temporary documentation files:**
+   - Review all files created during the task
+   - Delete task-specific temporary files (e.g., `TASK_23_SUMMARY.md`, `TESTING_LIMITATIONS.md`)
+   - Ask the user: "Should I synthesize the content from [temporary file names] into a reusable `docs/` page (or add to an existing one)?"
+   - If yes, create/update the appropriate `docs/` file with permanent, reusable content
+   - If no, simply delete the temporary files
+   - Examples of permanent documentation:
+     - Testing guides: `docs/ipad.md`, `docs/testing.md`
+     - Architecture notes: Add to `CLAUDE.md` or create `docs/architecture.md`
+     - Implementation patterns: Add to relevant `docs/` file
+   - Commit the cleanup separately from feature work
 
 ## Committing Changes
 
@@ -157,9 +177,17 @@ xcrun simctl list devices available | grep "iPhone"
 
 After completing a task and receiving user approval:
 
-1. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
+1. **Delete all testing screenshots before merging:**
+   ```bash
+   # Remove any screenshot files created during testing
+   git rm screenshot-*.png 2>/dev/null || rm screenshot-*.png 2>/dev/null
+   git commit -m "chore: remove testing screenshots" 2>/dev/null || true
+   ```
+   Screenshots are for manual verification only and should never be committed to main.
 
-2. **If yes, merge and clean up the branch:**
+2. **Ask the user:** "Should I merge the current branch (`<branch-name>`) into main?"
+
+3. **If yes, merge and clean up the branch:**
    ```bash
    git checkout main
    git merge <branch-name> --no-ff -m "Merge <task-description>"

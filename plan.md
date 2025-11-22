@@ -167,7 +167,7 @@
   - Test focus area switching while sheet is open
   - Restart app, verify all data persists
 
-- [ ] 22. UI polish to match mockups
+- [x] 22. UI polish to match mockups
   - Verify colors: blue for active toggle, gray button, blue circular +
   - Check spacing between components
   - Ensure checkbox styling matches mockup

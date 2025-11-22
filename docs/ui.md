@@ -17,6 +17,7 @@ This document outlines the UI design principles and guidelines for the Bullet Jo
 
 - **Active focus area toggle**: `.blue` (system color, adapts to dark mode)
 - **Inactive focus area toggle**: `.primary` (system color, adapts to dark mode)
+- **Focus area separator "/"**: `.primary` (system color, adapts to dark mode)
 - **Create task button background**: `Color(white: 0.9)` (light gray)
 - **Add task sheet "+" button**: `.blue` background with `.white` text
 - **Task text**: `.primary` (system color, adapts to dark mode)
@@ -25,6 +26,12 @@ This document outlines the UI design principles and guidelines for the Bullet Jo
 ### Testing
 
 Always test UI components in both light and dark mode to ensure proper visibility and contrast.
+
+**Tested devices:**
+- iPhone SE (3rd generation) - Small screen (4.7")
+- iPhone 16 Pro Max - Large screen (6.9")
+
+Both devices tested successfully in light and dark mode.
 
 ## Typography
 

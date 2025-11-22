@@ -85,7 +85,6 @@ struct ContentView: View {
             .presentationDetents([.height(sheetHeight)])
             .presentationDragIndicator(.visible)
             .presentationBackgroundInteraction(.enabled)
-            .presentationBackground(.white)
         }
     }
 

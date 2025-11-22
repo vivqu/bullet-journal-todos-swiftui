@@ -54,13 +54,13 @@ struct ContentView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             WeekHeaderView(weekStartDate: Week.getCurrentWeekStart())
-                .padding(.horizontal)
-                .padding(.top)
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
 
             FocusAreaToggle(selectedFocusArea: $selectedFocusArea)
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
 
             TaskListView(
                 tasks: Binding(
@@ -85,7 +85,6 @@ struct ContentView: View {
             .presentationDetents([.height(sheetHeight)])
             .presentationDragIndicator(.visible)
             .presentationBackgroundInteraction(.enabled)
-            .presentationBackground(.white)
         }
     }
 

@@ -26,7 +26,7 @@ struct TaskRowView: View {
                 }
             }) {
                 Image(systemName: task.isComplete ? "checkmark.square" : "square")
-                    .font(.system(size: 22))
+                    .font(.system(size: 24))
                     .foregroundColor(.primary)
             }
             .buttonStyle(.plain)
@@ -38,7 +38,7 @@ struct TaskRowView: View {
 
             Spacer()
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 6)
     }
 }
 
